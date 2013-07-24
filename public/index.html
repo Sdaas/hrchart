@@ -43,15 +43,16 @@
 					<ul class="nav nav-list activities" ng-repeat="dg in displayGroup | orderBy:'id':true"> 
 						
 						
-						<li class="nav-header" data-toggle="collapse" data-target="#{{dg.id}" >
-							<a href="#">{{dg.label}}<span class="pull-right">4</span></a>
+						<li class="nav-header" data-toggle="collapse" data-target="#{{dg.id}}" >
+							<a href="#">{{dg.label}}<span class="pull-right">{{dg.activity.length}}</span></a>
 						</li>
-						<ul class="nav nav-list collapse in" id="july2013">
-							<li class="active"> <a href="#">07/23<span class="pull-right">45 min</span></a> </li>
-							<li> <a href="#">07/20<span class="pull-right">40 min</span></a> </li>
-							<li> <a href="#">07/17<span class="pull-right">37 min</span></a> </li>
-							<li> <a href="#">07/05<span class="pull-right">42 min</span></a> </li>
+						<!-- Also, do not collapse the items ( i.e., mark class = in ) for the first dg ( $index = 0 ) -->
+						<ul class="nav nav-list collapse" ng:class="{true:'in', false:''}[$index==0]" id="{{dg.id}}">
+							<li ng-repeat="x in dg.activity | orderBy:'summary.mmdd':true">
+						      <a href="#">{{x.summary.mmdd}}<span class="pull-right">{{x.summary.duration}} min</span></a>
+						    </li>
 						</ul>
+
 					</ul>
 				</div> <!-- well -->
 			</div>
