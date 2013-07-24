@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Heart Rate Chart</title>
+
+	<!-- jquery. needed by bootstrap -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"> </script>
+	<!-- bootstrap-->
+	<link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.js"> </script>
+
+</head>
+<body>
+	<!-- The navigation bar at the top -->
+	<div class="navbar navbar-inverse">
+		<div class="navbar-inner">
+			<a href="#" class="brand">Heart Rate Chart</a>
+			<ul class="nav">
+				<li class="active"><a href="">Wahoo</a></li>
+				<li><a href="#">Azumio</a></li>
+				<li><a href="#">Others</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- The sidebar and the main chart area -->
+	<div class="container-fluid">
+		<div class="row-fluid">
+
+			<!-- The Sidebar -->
+			<div class="span3">
+				<div id="activityList" class="well sidebar-nav"> 
+					<!-- contains list of all the activities -->
+					<ul class="nav nav-list activities">  
+						
+						<!-- July 2013 activities -->
+						<li class="nav-header" data-toggle="collapse" data-target="#july2013" >
+							<a href="#">July 2013<span class="pull-right">4</span></a>
+						</li>
+						<ul class="nav nav-list collapse in" id="july2013">
+							<li class="active"> <a href="#">07/23<span class="pull-right">45 min</span></a> </li>
+							<li> <a href="#">07/20<span class="pull-right">40 min</span></a> </li>
+							<li> <a href="#">07/17<span class="pull-right">37 min</span></a> </li>
+							<li> <a href="#">07/05<span class="pull-right">42 min</span></a> </li>
+						</ul>
+
+						<!-- June 2013 activities -->
+						<li class="nav-header" data-toggle="collapse" data-target="#june2013" >
+							<a href="#">June 2013<span class="pull-right">3</span></a>
+						</li>
+						<ul class="nav nav-list collapse in" id="june2013">
+							<li> <a href="#">06/28<span class="pull-right">42 min</span></a> </li>
+							<li> <a href="#">06/25<span class="pull-right">35 min</span></a> </li>
+							<li> <a href="#">006/03<span class="pull-right">40 min</span></a> </li>
+						</ul>
+
+						<!-- May 2013 activities -->
+						<li class="nav-header" data-toggle="collapse" data-target="#may2013" >
+							<a href="#">May 2013<span class="pull-right">6</span></a>
+						</li>
+						<ul class="nav nav-list collapse" id="may2013">
+							<li> <a href="#">05/31<span class="pull-right">35 min</span></a> </li>
+							<li> <a href="#">05/20<span class="pull-right">40 min</span></a> </li>
+							<li> <a href="#">05/15<span class="pull-right">42 min</span></a> </li>
+							<li> <a href="#">05/12<span class="pull-right">37 min</span></a> </li>
+							<li> <a href="#">05/09<span class="pull-right">35 min</span></a> </li>
+							<li> <a href="#">05/05<span class="pull-right">45 min</span></a> </li>
+						</ul>
+					</ul>
+				</div> <!-- well -->
+			</div>
+
+			<!-- Right side of the screen -->
+			<div class="span9">
+
+				<!-- activity summary -->
+				<div class="row-fluid">
+					<div class="span4">
+						<h2>Date</h2>
+						<p id="timestamp" class="lead">Jun 23, 2013  7:04:00 pm</p>
+					</div>
+					<div class="span4">
+						<h2>Duration</h2>
+						<p id="duration" class="lead">45 min</p>
+					</div>
+					<div class="span4">
+						<h2>Maximum</h2>
+						<p id="maxhr" class="lead">175 bpm</p>
+					</div>
+				</div>
+
+				<!-- The chart -->
+        		<div style="width:700px;height:300px"> Chart goes here ...</div>
+
+				<!-- Heart Rate Zone information -->
+				<div class="row-fluid">
+					<div class="span2">
+						<h4>Zone 1 <small>&lt;100</small> </h4>
+						<p class="lead">620 sec</p>
+					</div>
+					<div class="span2">
+						<h4>Zone 2 <small>120</small> </h4>
+						<p class="lead">430 sec</p>
+					</div>
+					<div class="span2">
+						<h4>Zone 3 <small>140</small> </h4>
+						<p class="lead">604sec</p>
+					</div>
+					<div class="span2">
+						<h4>Zone 4 <small>160</small> </h4>
+						<p class="lead">510 sec</p>
+					</div>
+					<div class="span2">
+						<h4>Zone 5 <small>180</small> </h4>
+						<p class="lead">250 sec</p>
+					</div>
+					<div class="span2">
+						<h4>Zone 6 <small>&gt; 180</small> </h4>
+						<p class="lead">25 sec</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>
