@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="MyApp">
 <head>
 	<title>Heart Rate Chart</title>
 
@@ -10,8 +10,16 @@
 	<link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet" type="text/css"/>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.js"> </script>
 
+	<!-- Angular, underscore, and date libraries -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+	<script type="js/underscore-min.js"></script>
+	<script src="js/date.js"></script>
+
+	<!-- Angular Controllers for this app -->
+	<script src="js/controllers.js"></script>
+
 </head>
-<body>
+<body ng-controller="MyController">
 	<!-- The navigation bar at the top -->
 	<div class="navbar navbar-inverse">
 		<div class="navbar-inner">
@@ -32,40 +40,17 @@
 			<div class="span3">
 				<div id="activityList" class="well sidebar-nav"> 
 					<!-- contains list of all the activities -->
-					<ul class="nav nav-list activities">  
+					<ul class="nav nav-list activities" ng-repeat="dg in displayGroup | orderBy:'id':true"> 
 						
-						<!-- July 2013 activities -->
-						<li class="nav-header" data-toggle="collapse" data-target="#july2013" >
-							<a href="#">July 2013<span class="pull-right">4</span></a>
+						
+						<li class="nav-header" data-toggle="collapse" data-target="#{{dg.id}" >
+							<a href="#">{{dg.label}}<span class="pull-right">4</span></a>
 						</li>
 						<ul class="nav nav-list collapse in" id="july2013">
 							<li class="active"> <a href="#">07/23<span class="pull-right">45 min</span></a> </li>
 							<li> <a href="#">07/20<span class="pull-right">40 min</span></a> </li>
 							<li> <a href="#">07/17<span class="pull-right">37 min</span></a> </li>
 							<li> <a href="#">07/05<span class="pull-right">42 min</span></a> </li>
-						</ul>
-
-						<!-- June 2013 activities -->
-						<li class="nav-header" data-toggle="collapse" data-target="#june2013" >
-							<a href="#">June 2013<span class="pull-right">3</span></a>
-						</li>
-						<ul class="nav nav-list collapse in" id="june2013">
-							<li> <a href="#">06/28<span class="pull-right">42 min</span></a> </li>
-							<li> <a href="#">06/25<span class="pull-right">35 min</span></a> </li>
-							<li> <a href="#">006/03<span class="pull-right">40 min</span></a> </li>
-						</ul>
-
-						<!-- May 2013 activities -->
-						<li class="nav-header" data-toggle="collapse" data-target="#may2013" >
-							<a href="#">May 2013<span class="pull-right">6</span></a>
-						</li>
-						<ul class="nav nav-list collapse" id="may2013">
-							<li> <a href="#">05/31<span class="pull-right">35 min</span></a> </li>
-							<li> <a href="#">05/20<span class="pull-right">40 min</span></a> </li>
-							<li> <a href="#">05/15<span class="pull-right">42 min</span></a> </li>
-							<li> <a href="#">05/12<span class="pull-right">37 min</span></a> </li>
-							<li> <a href="#">05/09<span class="pull-right">35 min</span></a> </li>
-							<li> <a href="#">05/05<span class="pull-right">45 min</span></a> </li>
 						</ul>
 					</ul>
 				</div> <!-- well -->
