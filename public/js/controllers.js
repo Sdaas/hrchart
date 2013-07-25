@@ -109,6 +109,24 @@ var organize = function( activityList ){
 	return displayGroup;
 }
 
+// returns a reference to the most recent activity.
+var mostRecentActivity = function( activityList ){
+	var mra = null;
+	_.each(activityList, function(activity){
+
+		// handle the null case;
+		if( mra == null )  mra = activity;
+
+		// now check for the most recent one. Remember that the activity.id is
+		// in format yyyymmddhhmmss, so we just need to do a numerical check
+		if( activity.id > mra.id ){
+			mra = activity;
+		}
+	});
+
+	return mra;
+}
+
 app.controller('MyController', function($scope, $http, _ ){
 
 	console.log("MyController called...");
@@ -120,13 +138,19 @@ app.controller('MyController', function($scope, $http, _ ){
 	$scope.series = [ { color: "#0088CC", data: [ [0,0], [100,90], [200,100]] }];  // some dummy data
 	
 	// get the activity list from the app server
+	// TODO Add error handling
 	$http.get('/activity').success( function(activityList){
 
 		// Organize the data in a manner suitable for display
 		enhance(activityList);
 		$scope.displayGroup = organize(activityList);
+
+		// mark the most recent activity as the active ( or selected ) one
+		$scope.currentActivity = mostRecentActivity(activityList);
+		$scope.updateSeriesDataForCurrentActivity();
 	});
-	// TODO Add error handling
+	
+	$scope.activityLoaded = true;
 	
 
 	// handling when the user clicks on an activity. Not that we are just defining
@@ -145,17 +169,20 @@ app.controller('MyController', function($scope, $http, _ ){
 
 		// mark this as a the selected or current activity	
 		$scope.currentActivity = activity;
+		$scope.updateSeriesDataForCurrentActivity();
+	}
 
+	$scope.updateSeriesDataForCurrentActivity = function() {
 
 		// Check if the current activity has hr data. if not get it from the app server
-		if( activity.hr == undefined ){
+		if( $scope.currentActivity.hr == undefined ){
 
 			// mark is as not loaded - the ui may be able to use this to display a "spinner"
 			$scope.activityLoaded = false;
-			console.log('getting Details for activity ' + activityId );
+			console.log('getting Details for activity ' + $scope.currentActivity.id);
 
 
-			$http.get("/activity/" + activityId).success( function(result){
+			$http.get("/activity/" + $scope.currentActivity.id).success( function(result){
 				// TODO error handling
 				$scope.currentActivity.hr = result.hr;
 
@@ -174,5 +201,4 @@ app.controller('MyController', function($scope, $http, _ ){
 
 	}
 
-	$scope.activityLoaded = true;
 })
