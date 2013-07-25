@@ -35,7 +35,7 @@ var createBinsAndAggregate = function( samples ) {
 		var max = und.max( aggregated[i]);
 		hr.push( [ i*10, max ]);
 	}
-	console.log( hr.length + " samples");
+	//console.log( hr.length + " samples");
 	return hr;
 }
 
@@ -111,10 +111,19 @@ var activities = function(){
 		x.maxhr = record.maxhr;
 		// Do Not copy the hr[] array
 
-		retval.push(x)
+		retval.push(x);
 	})
 
-	return und.retval;
+	return retval;
+}
+
+
+
+var activityDetails = function(activityId){
+  console.log("ActivityDetails called. Target = " + activityId);
+
+  retval = und.find(activity, function(record){ return record.id == activityId});
+  return retval;
 }
 
 //
@@ -122,3 +131,4 @@ var activities = function(){
 //
 exports.loadAllFiles = loadAllFiles;
 exports.activities = activities;
+exports.activityDetails = activityDetails;

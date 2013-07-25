@@ -34,12 +34,19 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-// Get list of all the activities
+// Get list of all the activities ...
 app.get('/activity', function(req, res){
-
 	res.set('Content-Type', 'application/json');
 	var activities = pwx.activities();
 	res.json(activities);
+});
+
+// Get the details for the specified activity ...
+app.get('/activity/:activityId', function(req, res){
+	activityId = req.params.activityId;
+	console.log("target Activity = " + activityId);
+	activity = pwx.activityDetails(activityId);
+	res.json(activity);
 });
 
 http.createServer(app).listen(app.get('port'), function(){
