@@ -17,19 +17,19 @@ app.controller('MyController', function($scope, $http, _ ){
 			"activity" : [
 				{	
 					"id" : "201305082315",
-					"summary" : { "mmdd" : "05/08", "duration" : 40, "maxhr" : 150 } 
+					"mmdd" : "05/08", "duration" : 40, "maxhr" : 150  
 				},
 				{	
 					"id" : "201305121815",
-					"summary" : { "mmdd" : "05/12", "duration" : 41, "maxhr" : 165 } 
+					"mmdd" : "05/12", "duration" : 41, "maxhr" : 165
 				},
 				{	
 					"id" : "201305150945",
-					"summary" : { "mmdd" : "05/15", "duration" : 27, "maxhr" : 170 } 
+					"mmdd" : "05/15", "duration" : 27, "maxhr" : 170 
 				},
 				{	
 					"id" : "201305181904",
-					"summary" : { "mmdd" : "05/18", "duration" : 31, "maxhr" : 175 } 
+					"mmdd" : "05/18", "duration" : 31, "maxhr" : 175
 				}
 			]
 		},
@@ -39,11 +39,11 @@ app.controller('MyController', function($scope, $http, _ ){
 			"activity" : [
 				{	
 					"id" : "201307231800",
-					"summary" : { "mmdd" : "07/23", "duration" : 35, "maxhr" : 145 } 
+					"mmdd" : "07/23", "duration" : 35, "maxhr" : 145
 				},
 				{	
 					"id" : "201307201900",
-					"summary" : { "mmdd" : "07/20", "duration" : 40, "maxhr" : 165 } 
+					"mmdd" : "07/20", "duration" : 40, "maxhr" : 165
 				}
 			]
 		},
@@ -53,11 +53,11 @@ app.controller('MyController', function($scope, $http, _ ){
 			"activity" : [
 				{	
 					"id" : "201306061000",
-					"summary" : { "mmdd" : "06/06", "duration" : 45, "maxhr" : 166 } 
+					"mmdd" : "06/06", "duration" : 45, "maxhr" : 166 
 				},
 				{	
 					"id" : "201306150900",
-					"summary" : { "mmdd" : "06/15", "duration" : 30, "maxhr" : 170 } 
+					"mmdd" : "06/15", "duration" : 30, "maxhr" : 170
 				}
 			]
 		}

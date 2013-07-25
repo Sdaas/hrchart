@@ -48,8 +48,8 @@
 						</li>
 						<!-- Also, do not collapse the items ( i.e., mark class = in ) for the first dg ( $index = 0 ) -->
 						<ul class="nav nav-list collapse" ng:class="{true:'in', false:''}[$index==0]" id="{{dg.id}}">
-							<li ng-repeat="x in dg.activity | orderBy:'summary.mmdd':true" id="{{x.id}}" ng:class="{true:'active', false:''}[currentActivity.id == x.id]" ng-click="activitySelected(dg.id,x.id)" >
-						      <a href="#">{{x.summary.mmdd}}<span class="pull-right">{{x.summary.duration}} min</span></a>
+							<li ng-repeat="x in dg.activity | orderBy:'mmdd':true" id="{{x.id}}" ng:class="{true:'active', false:''}[currentActivity.id == x.id]" ng-click="activitySelected(dg.id,x.id)" >
+						      <a href="#">{{x.mmdd}}<span class="pull-right">{{x.duration}} min</span></a>
 						    </li>
 						</ul>
 
@@ -68,11 +68,11 @@
 					</div>
 					<div class="span4">
 						<h2>Duration</h2>
-						<p id="duration" class="lead">{{currentActivity.summary.duration}} min</p>
+						<p id="duration" class="lead">{{currentActivity.duration}} min</p>
 					</div>
 					<div class="span4">
 						<h2>Maximum</h2>
-						<p id="maxhr" class="lead">{{currentActivity.summary.maxhr}} bpm</p>
+						<p id="maxhr" class="lead">{{currentActivity.maxhr}} bpm</p>
 					</div>
 				</div>
 
