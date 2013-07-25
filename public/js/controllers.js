@@ -117,6 +117,7 @@ app.controller('MyController', function($scope, $http, _ ){
 	$scope.activityLoaded = false;
 	$scope.displayGroup = [];
 	$scope.currentActivity = {};
+	$scope.series = [ { color: "#0088CC", data: [ [0,0], [100,90], [200,100]] }];  // some dummy data
 	
 	// get the activity list from the app server
 	$http.get('/activity').success( function(activityList){
@@ -142,9 +143,35 @@ app.controller('MyController', function($scope, $http, _ ){
 			console.log("error: did not find activity " + activityId);
 		}
 
-		console.log(activity);
 		// mark this as a the selected or current activity	
 		$scope.currentActivity = activity;
+
+
+		// Check if the current activity has hr data. if not get it from the app server
+		if( activity.hr == undefined ){
+
+			// mark is as not loaded - the ui may be able to use this to display a "spinner"
+			$scope.activityLoaded = false;
+			console.log('getting Details for activity ' + activityId );
+
+
+			$http.get("/activity/" + activityId).success( function(result){
+				// TODO error handling
+				$scope.currentActivity.hr = result.hr;
+
+				// use the current hr data with this activity
+				// TODO Refactor this 
+				$scope.series = [ { color: "#0088CC", data: $scope.currentActivity.hr }];
+				$scope.activityLoaded = true;						
+			});
+		}
+		else {
+			// use the current hr data with this activity
+			// TODO Refactor this
+			$scope.series = [ { color: "#0088CC", data: $scope.currentActivity.hr }];
+			$scope.activityLoaded = true;
+		}
+
 	}
 
 	$scope.activityLoaded = true;

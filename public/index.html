@@ -15,8 +15,13 @@
 	<script type="text/javascript" src="http://underscorejs.org/underscore-min.js"></script>
 	<script src="js/date.js"></script>
 
-	<!-- Angular Controllers for this app -->
+	<!-- Flot charting libraries -->
+	<script type="text/javascript" src="flot/jquery.flot.min.js"> </script>
+
+	<!-- Angular Controllers and Directives for this app -->
 	<script src="js/controllers.js"></script>
+	<script src="js/directives.js"></script>
+
 
 </head>
 <body ng-controller="MyController">
@@ -77,8 +82,9 @@
 				</div>
 
 				<!-- The chart -->
-        		<div style="width:700px;height:300px"> Chart goes here ...</div>
-
+        		<div ng-hide="activityLoaded">Loading chart ...</div>
+        		<div chart style="width:700px;height:300px"></div>
+        		
 				<!-- Heart Rate Zone information -->
 				<div class="row-fluid">
 					<div class="span2">
