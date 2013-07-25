@@ -12,6 +12,7 @@
     "dbox": "0.6.*",
     "underscore" : "1.5.*",
     "xml2js" : "0.2.*",
-    "datejs" : "0.0.*"
+    "datejs" : "0.0.*",
+    "sleep" : "1.*"
   }
 }
