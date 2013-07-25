@@ -5,6 +5,10 @@ var fs = require('fs');
 var und  = require('underscore');
 var xml2js = require('xml2js');
 var sleep = require('sleep');     // Only to Simulate delay :)
+var watch = require('nodewatch'); // To monitor files in my dropbox
+var fsx = require('fs-extra');			  // To copy files from my dropbox to the data folder
+var path = require('path');
+
 require('datejs');
 
 // The global array in which to story all activities
@@ -129,9 +133,39 @@ var activityDetails = function(activityId){
   return retval;
 }
 
+// Watch this folder ( recursiely ) for PWX files. When a new PWX file appears, 
+// copy it to the data folder and refresh the app
+var watchFolder = function( pathToWatch, destination){
+	watch.add(pathToWatch, true).onChange(function(file,prev,curr,action){
+		if( action == "new") {
+			// if this is a PWX file, copy it to the .data folder and load it up.
+			if( file.match(/.*\.pwx$/i)){
+			console.log("*** New file created : " + file );
+			// wait for 5 seconds and copy the file ...
+				setTimeout(function(){
+					
+					base = path.basename(file);
+					dest = destination + "/" + base;
+					console.log("Copying "  + file + " to " + dest );
+					fsx.copy(file, dest, function (err) {
+	  					if (err) {
+	    					throw err;
+	  					}
+	  					console.log("done");
+	  					processPWXFile(dest);
+					});
+
+				}, 5000)
+			}
+			
+		}
+ 	});
+}
+
 //
 // External Interfaces
 //
 exports.loadAllFiles = loadAllFiles;
 exports.activities = activities;
 exports.activityDetails = activityDetails;
+exports.watch = watchFolder;

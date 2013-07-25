@@ -11,6 +11,7 @@ var express = require('express')
 
 var pwx = require('./pwx.js');
 
+
 var app = express();
 
 // all environments
@@ -26,8 +27,12 @@ app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+// The folder where all the .PWX files are kept
+app.set('pwx file path','data');
+
 // Load all the PWX files from the "data" directory
-pwx.loadAllFiles('data');
+pwx.loadAllFiles( app.get('pwx file path'));
+
 
 // development only
 if ('development' == app.get('env')) {
@@ -52,3 +57,9 @@ app.get('/activity/:activityId', function(req, res){
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+// This stuff is specific to the way I get .PWX files on my computer
+// The idea is to monitor my dropbox folder for new .PWX files, copy the
+// new files into the data directory and tell the app to update itself
+pwx.watch("/Users/sdaas/temp", "./data");
+
