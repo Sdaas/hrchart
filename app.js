@@ -9,6 +9,8 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
+var pwx = require('./pwx.js');
+
 var app = express();
 
 // all environments
@@ -24,13 +26,21 @@ app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Load all the PWX files from the "data" directory
+pwx.loadAllFiles('data');
+
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-//app.get('/', routes.index);
-//app.get('/users', user.list);
+// Get list of all the activities
+app.get('/activity', function(req, res){
+
+	res.set('Content-Type', 'application/json');
+	var activities = pwx.activities();
+	res.json(activities);
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
