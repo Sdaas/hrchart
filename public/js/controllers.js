@@ -1,16 +1,5 @@
 
-// Declare Underscore itself as a module
-var underscore = angular.module('underscore', []);
-underscore.factory('_', function() {
-  return window._; // assumes underscore has already been loaded on the page
-});
-
-var app = angular.module('MyApp', ['underscore']);
-
-
-app.controller('MyController', function($scope, $http, _ ){
-
-	$scope.displayGroup = [
+var staticData = [
 		{ 
 			"label" : "May 2013",  
 			"id" : "201305",
@@ -61,18 +50,102 @@ app.controller('MyController', function($scope, $http, _ ){
 				}
 			]
 		}
-	]
+	];
 
-	// handling when the user clicks on an activity 
+// Declare Underscore itself as a module
+var underscore = angular.module('underscore', []);
+underscore.factory('_', function() {
+  return window._; // assumes underscore has already been loaded on the page
+});
+
+var app = angular.module('MyApp', ['underscore']);
+
+// Enhance the meta data for each activity
+var enhance  = function( activityList ){
+	console.log("Enhancing activities ...");
+	_.each(activityList, function(activity){ 
+
+		var d = Date.parse(activity.timestamp);
+
+		// Enhance the activity Summary to include yyyy, mmm, mmdd etc etc.
+		activity.mmdd = d.toString("MM/dd");
+		activity.yyyy = d.toString("yyyy");
+		activity.mmm = d.toString("MMM");
+	});
+}
+
+// Organize the activities into display Groups
+var organize = function( activityList ){
+
+	console.log("Organizing activities ...");
+
+	var displayGroup = [];
+	_.each(activityList, function(activity){ 
+
+		var d = Date.parse(activity.timestamp);
+
+		// Identify the display group, and get a reference to it. Create the displayGroup
+		// if it does not exist
+		var dgid = d.toString("yyyyMM");
+		var targetDisplayGroup = _.find( displayGroup, function(x) { return x.id == dgid; });
+		if( targetDisplayGroup == undefined ){
+			//console.log("Adding DisplayGroup " + dgid );
+
+			// Create a new DisplayGroup
+			var dg = {};
+			dg.id = dgid;
+			dg.label = d.toString("MMMM yyyy");
+			dg.activity = [];
+
+			// Add this display Group to the list
+			displayGroup.push(dg);
+			targetDisplayGroup = dg;
+		}
+
+		// Add the current activity to this DG
+		targetDisplayGroup.activity.push(activity); 
+	});
+
+	return displayGroup;
+}
+
+app.controller('MyController', function($scope, $http, _ ){
+
+	console.log("MyController called...");
+
+	// These are all the data structures that we will need in our current scope
+	$scope.activityLoaded = false;
+	$scope.displayGroup = [];
+	$scope.currentActivity = {};
+	
+	// get the activity list from the app server
+	$http.get('/activity').success( function(activityList){
+
+		// Organize the data in a manner suitable for display
+		enhance(activityList);
+		$scope.displayGroup = organize(activityList);
+	});
+	// TODO Add error handling
+	
+
+	// handling when the user clicks on an activity. Not that we are just defining
+	// the function here, not calling it ....
 	$scope.activitySelected = function(dgId, activityId) {
 		console.log("dgid = " + dgId + ", Activity " + activityId + " selected");
 		var dg = _.find( $scope.displayGroup, function(dg) { return dg.id == dgId; });
-		if( dg != undefined ) console.log("found dg");
-		
+		if( dg == undefined ){
+			console.log("error : did not find dg " + dgId);
+			return;
+		}
 		var activity = _.find( dg.activity, function(x) { return x.id == activityId; });
-		if( activity != undefined ) console.log("found activity");
+		if( activity == undefined ){
+			console.log("error: did not find activity " + activityId);
+		}
 
+		console.log(activity);
 		// mark this as a the selected or current activity	
 		$scope.currentActivity = activity;
 	}
+
+	$scope.activityLoaded = true;
 })
