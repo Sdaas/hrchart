@@ -4,6 +4,7 @@
 var fs = require('fs');
 var und  = require('underscore');
 var xml2js = require('xml2js');
+var sleep = require('sleep');     // Only to Simulate delay :)
 require('datejs');
 
 // The global array in which to story all activities
@@ -121,6 +122,8 @@ var activities = function(){
 
 var activityDetails = function(activityId){
   console.log("ActivityDetails called. Target = " + activityId);
+
+  //sleep.sleep(1); // Sleep for so many milliseconds. Simulate a slow network :)
 
   retval = und.find(activity, function(record){ return record.id == activityId});
   return retval;
