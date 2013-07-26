@@ -1,3 +1,5 @@
 chart3.sublime*
 node_modules/
-data/
+data/*.pwx
+data/*.PWX
+*.DS_Store
