@@ -62,7 +62,7 @@ var createActivityFromJson = function( json ){
 }
 
 var processPWXFile = function( pathToFile ){
-	console.log("Processing " + pathToFile);
+	//console.log("Processing " + pathToFile);
 	fs.readFile(pathToFile, function(err, data){
 		if( err ){
 			console.log("Error reading " + pathToFile );
