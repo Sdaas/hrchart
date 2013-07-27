@@ -5,10 +5,11 @@
 # WATCHFOLDER for new .pwx and copies them into the DATAFOLDER when it finds a new one.
 export WATCHFOLDER="/Users/sdaas/Dropbox/Apps/WahooFitness"
 export DATAFOLDER="./data"
+export NODE="/opt/local/bin/node"
 
 # Copy all the PWX files from the drop box to the data folder
 find ${WATCHFOLDER} -name "*.pwx" -exec cp {} ${DATAFOLDER} \;
 
 # Start the Server
 # The app server will keep monitoring the dropbox for new files
-node app.js
+$NODE app.js
