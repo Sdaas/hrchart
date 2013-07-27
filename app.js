@@ -19,7 +19,10 @@ app.set('port', process.env.PORT || 8000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
-app.use(express.logger('dev'));
+
+var logformat = '[:date]: :remote-addr :req[X-Forwarded-For] :method :url HTTP/:http-version :status - :response-time ms'; 
+
+app.use(express.logger(logformat));   // See http://www.senchalabs.org/connect/middleware-logger.html
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
