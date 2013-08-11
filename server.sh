@@ -4,7 +4,7 @@
 # they are copied to the DATA FOLDER. In addition, the app server watches the 
 # WATCHFOLDER for new .pwx and copies them into the DATAFOLDER when it finds a new one.
 export WATCHFOLDER="/Users/sdaas/Dropbox/Apps/WahooFitness"
-export DATAFOLDER="./data"
+export DATAFOLDER="/Users/sdaas/Dropbox/hrdata"
 export NPM="/opt/local/bin/npm"
 export NODE="/opt/local/bin/node"
 
@@ -13,7 +13,7 @@ export NODE="/opt/local/bin/node"
 # been installed
 if [ ! -d "node_modules" ]; then
   # Control will enter here if $DIRECTORY doesn't exist.
-  npm install
+  $NPM install
 fi
 
 # Copy all the PWX files from the drop box to the data folder
