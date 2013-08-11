@@ -14,7 +14,7 @@
     "xml2js" : "0.2.*",
     "datejs" : "0.0.*",
     "sleep" : "1.*",
-    "nodewatch" : "0.3.*",
+    "node-watch" : "0.3.*",
     "fs-extra" : "0.6.*"
   }
 }
