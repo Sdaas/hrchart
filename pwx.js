@@ -167,9 +167,9 @@ var watchFolder = function( pathToWatch, destination){
 var watchFolder = function( pathToWatch, destination){
 	console.log("Now watching "  + pathToWatch);
 	
-	watch(pathToWatch, function(fileName){
-		console.log(fileName + " changed.");
-		if( fileName.match(/.*\.pwx$/i)){
+	watch(pathToWatch, function(file){
+		console.log(file+ " changed.");
+		if( file.match(/.*\.pwx$/i)){
 			console.log("got a pwx file");
 			// wait for 5 seconds and copy the file ...
 			setTimeout(function(){
